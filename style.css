@@ -893,24 +893,6 @@ section { padding: 110px 0; position: relative; }
 .footer-fineprint { font-family: var(--f-mono); font-size: 0.7rem; }
 
 /* =====================================================
-   BACK TO TOP
-===================================================== */
-.back-to-top {
-  position: fixed; bottom: 28px; right: 28px; z-index: 400;
-  width: 48px; height: 48px; display: flex; align-items: center; justify-content: center;
-  opacity: 0; transform: translateY(12px); pointer-events: none;
-  transition: opacity .35s ease, transform .35s ease;
-  color: var(--ink-dim);
-}
-.back-to-top.is-visible { opacity: 1; transform: translateY(0); pointer-events: auto; }
-.back-to-top:hover { color: var(--amber); }
-.back-to-top__ring { position: absolute; inset: 0; transform: rotate(-90deg); }
-.back-to-top__track, .back-to-top__fill { fill: none; stroke-width: 2; }
-.back-to-top__track { stroke: var(--line); }
-.back-to-top__fill { stroke: var(--amber); stroke-dasharray: 132; stroke-dashoffset: 132; transition: stroke-dashoffset .15s linear; }
-.back-to-top__arrow { position: relative; }
-
-/* =====================================================
    RESPONSIVE
 ===================================================== */
 @media (max-width: 980px) {

@@ -30,7 +30,6 @@
     setupGauges();
     setupNewsletter();
     setupFooter();
-    setupBackToTop();
     setupForm();
     setupActiveNav();
     setupSmoothAnchors();
@@ -597,28 +596,7 @@
   /* ---------------------------------------------------
      BACK TO TOP
   --------------------------------------------------- */
-  function setupBackToTop() {
-    const btn = document.getElementById("backToTop");
-    const fill = document.getElementById("backToTopFill");
-    if (!btn || !fill) return;
 
-    const circumference = 132; // 2 * PI * 21
-
-    function update() {
-      const scrollTop = window.scrollY;
-      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-      const pct = docHeight > 0 ? Math.min(1, scrollTop / docHeight) : 0;
-      fill.style.strokeDashoffset = String(circumference - circumference * pct);
-      btn.classList.toggle("is-visible", scrollTop > 480);
-    }
-
-    window.addEventListener("scroll", update, { passive: true });
-    update();
-
-    btn.addEventListener("click", () => {
-      window.scrollTo({ top: 0, behavior: reduceMotion ? "auto" : "smooth" });
-    });
-  }
 
   /* ---------------------------------------------------
      CONTACT FORM (front-end only — no backend wired up)

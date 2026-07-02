@@ -928,7 +928,9 @@ section { padding: 110px 0; position: relative; }
 
 @media (max-width: 760px) {
   .main-nav, .site-header .btn { display: none; }
-  .nav-toggle { display: flex; }
+  .site-header__inner { justify-content: space-between; gap: 12px; }
+  .logo__img { width: 190px; max-height: 56px; }
+  .nav-toggle { display: flex; margin-left: auto; }
   section { padding: 76px 0; }
   .stat-grid { grid-template-columns: 1fr 1fr; gap: 22px; }
   .cap-grid, .work-grid { grid-template-columns: 1fr; }

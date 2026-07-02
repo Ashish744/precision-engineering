@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Create Account — Precision Engineering</title>
+<meta name="description" content="Create a Precision Engineering account to request quotes, track orders, and manage inspection reports.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@500;700;900&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="style.css">
+</head>
+<body class="auth-body">
+
+<div class="cursor-ring" id="cursorRing"></div>
+<div class="cursor-dot" id="cursorDot"></div>
+
+<header class="auth-header">
+  <a href="index.html" class="logo">
+    <span class="logo__mark" aria-hidden="true">
+      <svg viewBox="0 0 40 40" width="32" height="32">
+        <circle cx="20" cy="20" r="17" class="logo__mark-ring"/>
+        <line x1="20" y1="20" x2="20" y2="7" class="logo__mark-tick"/>
+        <line x1="20" y1="20" x2="29" y2="20" class="logo__mark-tick logo__mark-tick--minor"/>
+        <circle cx="20" cy="20" r="2.4" class="logo__mark-hub"/>
+      </svg>
+    </span>
+    <span class="logo__text">PRECISION<span class="logo__text-sub">ENGINEERING</span></span>
+  </a>
+  <a href="login.html" class="btn btn--ghost btn--small">
+    <span>Log In</span>
+  </a>
+</header>
+
+<main class="auth auth--signup">
+  <div class="auth__grid" aria-hidden="true"></div>
+  <div class="auth__glow" aria-hidden="true"></div>
+
+  <div class="auth__panel auth__panel--visual">
+    <div class="auth__visual-content">
+      <ul class="auth__checklist">
+        <li class="reveal-up in-view">
+          <span class="check-list__icon"><svg viewBox="0 0 16 16" width="13" height="13"><path d="M2 8.5l4 4 8-9" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          Request quotes and track lead times
+        </li>
+        <li class="reveal-up in-view" style="--delay:0.08s">
+          <span class="check-list__icon"><svg viewBox="0 0 16 16" width="13" height="13"><path d="M2 8.5l4 4 8-9" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          Download inspection &amp; CoC reports
+        </li>
+        <li class="reveal-up in-view" style="--delay:0.16s">
+          <span class="check-list__icon"><svg viewBox="0 0 16 16" width="13" height="13"><path d="M2 8.5l4 4 8-9" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          Reorder past jobs in one click
+        </li>
+        <li class="reveal-up in-view" style="--delay:0.24s">
+          <span class="check-list__icon"><svg viewBox="0 0 16 16" width="13" height="13"><path d="M2 8.5l4 4 8-9" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          Message your dedicated machinist
+        </li>
+      </ul>
+
+      <div class="auth__stamp">
+        <span class="hero__stamp-value">±0.0005 in</span>
+        <span class="hero__stamp-label">typical achievable tolerance &middot; 0.0127&nbsp;mm</span>
+      </div>
+    </div>
+    <div class="auth__visual-grid" aria-hidden="true"></div>
+  </div>
+
+  <div class="auth__panel auth__panel--form">
+    <div class="auth__card reveal-up in-view">
+      <p class="eyebrow"><span class="eyebrow__dot"></span>CUSTOMER PORTAL</p>
+      <h1 class="auth__title split-chars" data-split>Open an account.</h1>
+      <p class="auth__sub">Takes about a minute. No credit card, no commitment — just a faster path to a quote.</p>
+      <p class="auth__sub" style="margin-top: 12px; color: var(--ink-dim);">Create your account and get prioritized quote response times plus easy access to part history.</p>
+
+      <div class="info-block" style="margin-bottom: 22px;">
+        <span class="info-block__label">WHY REGISTER</span>
+        <p>Store material preferences, save common part details, and speed future orders with ready-to-use project notes.</p>
+      </div>
+
+      <form class="form auth__form" id="signupForm" novalidate>
+        <div class="form__row">
+          <div class="form__field">
+            <input type="text" id="supName" name="name" required placeholder=" " autocomplete="name">
+            <label for="supName">Full name</label>
+            <span class="form__field-line"></span>
+          </div>
+          <div class="form__field">
+            <input type="text" id="supCompany" name="company" placeholder=" " autocomplete="organization">
+            <label for="supCompany">Company</label>
+            <span class="form__field-line"></span>
+          </div>
+        </div>
+
+        <div class="form__field">
+          <input type="email" id="supEmail" name="email" required placeholder=" " autocomplete="email"
+            pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
+            title="Please enter a valid email address, like name@example.com">
+          <label for="supEmail">Email address</label>
+          <span class="form__field-line"></span>
+        </div>
+
+        <div class="form__field form__field--password">
+          <input type="password" id="supPassword" name="password" required placeholder=" " autocomplete="new-password" minlength="8">
+          <label for="supPassword">Password</label>
+          <span class="form__field-line"></span>
+          <button type="button" class="pw-toggle" id="supPwToggle" aria-label="Show password">
+            <svg class="pw-toggle__eye" width="18" height="18" viewBox="0 0 24 24"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><circle cx="12" cy="12" r="3" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>
+            <svg class="pw-toggle__eye-off" width="18" height="18" viewBox="0 0 24 24" hidden><path d="M3 3l18 18M10.6 10.6a3 3 0 0 0 4.2 4.2M9.9 5.1A11 11 0 0 1 12 5c7 0 11 7 11 7a13.4 13.4 0 0 1-3.1 3.8M6.6 6.6A13.6 13.6 0 0 0 1 12s4 7 11 7a10.6 10.6 0 0 0 4.4-.9" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+        </div>
+
+        <div class="pw-strength" id="pwStrength" aria-hidden="true">
+          <div class="pw-strength__track">
+            <span class="pw-strength__bar" id="pwStrengthBar"></span>
+          </div>
+          <span class="pw-strength__label" id="pwStrengthLabel">Use 8+ characters</span>
+        </div>
+
+        <label class="checkbox checkbox--terms">
+          <input type="checkbox" id="supTerms" required>
+          <span class="checkbox__box"><svg viewBox="0 0 16 16" width="11" height="11"><path d="M2 8.5l4 4 8-9" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          I agree to the <a href="#" class="auth__link">Terms of Service</a> and <a href="#" class="auth__link">Privacy Policy</a>
+        </label>
+
+        <button type="submit" class="btn btn--primary btn--block auth__submit" id="signupSubmit">
+          <span id="signupSubmitText">Create Account</span>
+          <span class="auth__spinner" aria-hidden="true"></span>
+        </button>
+
+        <p class="form__confirm" id="signupConfirm" role="status"></p>
+      </form>
+
+      <div class="auth__divider"><span>or continue with</span></div>
+
+      <div class="auth__oauth">
+        <button type="button" class="oauth-btn" aria-label="Continue with Google">
+          <svg width="18" height="18" viewBox="0 0 18 18"><path fill="#EA4335" d="M9 3.6c1.3 0 2.5.46 3.4 1.34l2.5-2.5C13.4.93 11.3 0 9 0 5.5 0 2.4 2 0.9 4.9l2.9 2.3C4.5 5 6.6 3.6 9 3.6z"/><path fill="#4285F4" d="M17.6 9.2c0-.6-.06-1.2-.16-1.8H9v3.5h4.8c-.2 1.1-.86 2.1-1.8 2.7l2.8 2.2c1.6-1.5 2.6-3.8 2.6-6.6z"/><path fill="#FBBC05" d="M3.8 10.7c-.2-.6-.3-1.2-.3-1.9 0-.66.1-1.3.3-1.9L0.9 4.6C.3 5.9 0 7.4 0 9s.3 3.1.9 4.4l2.9-2.7z"/><path fill="#34A853" d="M9 18c2.4 0 4.5-.8 6-2.2l-2.8-2.2c-.8.5-1.8.9-3.2.9-2.4 0-4.5-1.4-5.3-3.6L0.9 13.4C2.4 16 5.5 18 9 18z"/></svg>
+          <span>Google</span>
+        </button>
+        <button type="button" class="oauth-btn" aria-label="Continue with Microsoft">
+          <svg width="18" height="18" viewBox="0 0 18 18"><rect width="8.5" height="8.5" fill="#F35325"/><rect x="9.5" width="8.5" height="8.5" fill="#81BC06"/><rect y="9.5" width="8.5" height="8.5" fill="#05A6F0"/><rect x="9.5" y="9.5" width="8.5" height="8.5" fill="#FFBA08"/></svg>
+          <span>Microsoft</span>
+        </button>
+      </div>
+
+      <p class="auth__switch">Already have an account? <a href="login.html">Log in</a></p>
+      <div class="info-block" style="margin-top: 24px; padding: 18px; border-radius: 8px; background: rgba(255,255,255,0.03);">
+        <span class="info-block__label">PRIVACY</span>
+        <p>We keep your data secure and never share your contact details. This account is for quote management and job tracking only.</p>
+      </div>
+    </div>
+  </div>
+</main>
+
+<script src="script.js"></script>
+</body>
+</html>

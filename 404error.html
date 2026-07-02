@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>404 — Out of Tolerance | Precision Engineering</title>
+<meta name="description" content="The page you requested could not be located. Return to Precision Engineering.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@500;700;900&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+/* =====================================================
+   404 PAGE — STYLES (self-contained)
+===================================================== */
+:root {
+  --bg: #14171a;
+  --bg-alt: #1a1d21;
+  --bg-raised: #20242a;
+  --ink: #eceeef;
+  --ink-dim: #9aa3ab;
+  --ink-faint: #5e666e;
+  --line: #2a2f35;
+  --line-soft: rgba(255,255,255,0.06);
+  --blueprint: #4d85b3;
+  --blueprint-dim: rgba(77,133,179,0.18);
+  --amber: #e8a33d;
+  --amber-soft: rgba(232,163,61,0.16);
+  --amber-ink: #1a1306;
+  --f-display: "Big Shoulders Display", sans-serif;
+  --f-body: "IBM Plex Sans", -apple-system, sans-serif;
+  --f-mono: "IBM Plex Mono", monospace;
+  --ease: cubic-bezier(.22,.9,.24,1);
+  --ease-spring: cubic-bezier(.34,1.56,.64,1);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: .001ms !important; animation-iteration-count: 1 !important; transition-duration: .001ms !important; }
+}
+
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--f-body);
+  min-height: 100vh;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+a { color: inherit; text-decoration: none; }
+button { font-family: inherit; cursor: pointer; background: none; border: none; color: inherit; }
+svg { display: block; }
+
+/* ---------- layout ---------- */
+.page {
+  position: relative;
+  min-height: 100vh;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  text-align: center;
+  padding: 100px 24px 60px;
+  overflow: hidden;
+}
+
+.page__grid {
+  position: absolute; inset: -10%;
+  background-image: linear-gradient(var(--line-soft) 1px, transparent 1px), linear-gradient(90deg, var(--line-soft) 1px, transparent 1px);
+  background-size: 44px 44px;
+  mask-image: radial-gradient(ellipse 60% 55% at 50% 40%, black 0%, transparent 75%);
+  -webkit-mask-image: radial-gradient(ellipse 60% 55% at 50% 40%, black 0%, transparent 75%);
+  animation: gridDrift 22s linear infinite;
+  pointer-events: none;
+}
+@keyframes gridDrift { from { background-position: 0 0; } to { background-position: -44px -44px; } }
+
+.page__glow {
+  position: absolute; width: 620px; height: 620px; left: 50%; top: 14%;
+  transform: translateX(-50%);
+  background: radial-gradient(circle, var(--amber-soft), transparent 70%);
+  filter: blur(10px);
+  pointer-events: none;
+}
+
+/* cursor reticle */
+.cursor-dot, .cursor-ring {
+  position: fixed; top: 0; left: 0; pointer-events: none; z-index: 50;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  opacity: 0;
+  transition: opacity .2s ease;
+}
+.cursor-dot { width: 5px; height: 5px; background: var(--amber); }
+.cursor-ring { width: 30px; height: 30px; border: 1px solid var(--blueprint); transition: width .25s var(--ease-spring), height .25s var(--ease-spring), opacity .2s ease, border-color .25s ease; }
+.cursor-ring.is-active { width: 50px; height: 50px; border-color: var(--amber); }
+.has-cursor .cursor-dot, .has-cursor .cursor-ring { opacity: 1; }
+@media (hover: none) { .cursor-dot, .cursor-ring { display: none !important; } }
+
+/* ---------- logo ---------- */
+.page__logo {
+  position: relative; z-index: 1;
+  display: inline-flex; align-items: center; gap: 10px;
+  margin-bottom: 56px;
+}
+.page__logo-mark { transition: transform .5s var(--ease-spring); }
+.page__logo:hover .page__logo-mark { transform: rotate(95deg); }
+.page__logo-ring { fill: none; stroke: var(--line); stroke-width: 1.4; }
+.page__logo-tick { stroke: var(--amber); stroke-width: 2; stroke-linecap: round; }
+.page__logo-tick--minor { stroke: var(--blueprint); }
+.page__logo-hub { fill: var(--ink); }
+.page__logo-text { font-family: var(--f-display); font-weight: 700; font-size: 1.05rem; letter-spacing: .01em; line-height: 1; display: flex; flex-direction: column; text-align: left; }
+.page__logo-sub { font-family: var(--f-mono); font-size: .52rem; font-weight: 400; letter-spacing: .22em; color: var(--blueprint); margin-top: 2px; }
+
+/* ---------- gauge with stuck needle ---------- */
+.gauge404 { position: relative; width: min(260px, 64vw); aspect-ratio: 1; margin: 0 auto 18px; z-index: 1; }
+.gauge404__svg { filter: drop-shadow(0 20px 50px rgba(0,0,0,0.45)); }
+.gauge404__face { fill: var(--bg-alt); stroke: var(--line); stroke-width: 1.5; }
+.gauge404__inner-ring { fill: none; stroke: var(--line); stroke-width: 1; }
+.gauge404__tick { stroke: var(--ink-faint); stroke-width: 1.4; }
+.gauge404__tick--major { stroke: var(--blueprint); stroke-width: 2; }
+.gauge404__tick--danger { stroke: #d6543a; }
+.gauge404__needle {
+  stroke: #d6543a; stroke-width: 2.5; stroke-linecap: round;
+  transform-origin: 120px 120px;
+  animation: needleJitter 2.6s ease-in-out infinite;
+  filter: drop-shadow(0 0 6px rgba(214,84,58,0.55));
+}
+@keyframes needleJitter {
+  0%, 100% { transform: rotate(108deg); }
+  4% { transform: rotate(123deg); }
+  8% { transform: rotate(101deg); }
+  12% { transform: rotate(114deg); }
+  50% { transform: rotate(110deg); }
+  54% { transform: rotate(96deg); }
+  58% { transform: rotate(119deg); }
+  62% { transform: rotate(108deg); }
+}
+.gauge404__hub { fill: var(--ink); stroke: var(--bg-alt); stroke-width: 2; }
+.gauge404__readout { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; pointer-events: none; }
+.gauge404__label { font-family: var(--f-mono); font-size: .58rem; letter-spacing: .16em; color: #d6543a; }
+.gauge404__num { font-family: var(--f-display); font-weight: 900; font-size: clamp(2.6rem, 7vw, 4rem); line-height: 1; color: var(--ink); letter-spacing: -.02em; }
+
+/* glitch flicker on the big number */
+.glitch { position: relative; display: inline-block; }
+.glitch::before, .glitch::after {
+  content: attr(data-text);
+  position: absolute; left: 0; top: 0; width: 100%; height: 100%;
+  overflow: hidden; opacity: 0.8;
+}
+.glitch::before { color: var(--amber); animation: glitchTop 3.2s infinite linear; clip-path: inset(0 0 55% 0); }
+.glitch::after { color: var(--blueprint); animation: glitchBottom 3.6s infinite linear; clip-path: inset(55% 0 0 0); }
+@keyframes glitchTop {
+  0%, 92%, 100% { transform: translate(0,0); opacity: 0; }
+  93% { transform: translate(-3px,-1px); opacity: .8; }
+  94% { transform: translate(3px,1px); opacity: .8; }
+  95% { transform: translate(-2px,0); opacity: 0; }
+}
+@keyframes glitchBottom {
+  0%, 90%, 100% { transform: translate(0,0); opacity: 0; }
+  91% { transform: translate(2px,1px); opacity: .8; }
+  92% { transform: translate(-3px,-1px); opacity: .8; }
+  93% { transform: translate(2px,0); opacity: 0; }
+}
+
+/* ---------- copy ---------- */
+.page__eyebrow {
+  position: relative; z-index: 1;
+  display: inline-flex; align-items: center; gap: 9px;
+  font-family: var(--f-mono); font-size: .72rem; font-weight: 500; letter-spacing: .16em;
+  color: var(--blueprint); margin-bottom: 18px;
+}
+.page__eyebrow-dot { width: 6px; height: 6px; border-radius: 50%; background: #d6543a; box-shadow: 0 0 0 3px rgba(214,84,58,0.18); flex-shrink: 0; animation: statusPulse 1.8s infinite; }
+@keyframes statusPulse { 0% { box-shadow: 0 0 0 0 rgba(214,84,58,0.5); } 70% { box-shadow: 0 0 0 8px rgba(214,84,58,0); } 100% { box-shadow: 0 0 0 0 rgba(214,84,58,0); } }
+
+.page__title {
+  position: relative; z-index: 1;
+  font-family: var(--f-display); font-weight: 700;
+  font-size: clamp(1.8rem, 4vw, 2.6rem); line-height: 1.08; letter-spacing: -.01em;
+  margin-bottom: 16px;
+}
+.page__sub {
+  position: relative; z-index: 1;
+  color: var(--ink-dim); font-size: 1rem; max-width: 460px; margin: 0 auto 14px;
+}
+.page__coords {
+  position: relative; z-index: 1;
+  font-family: var(--f-mono); font-size: .72rem; color: var(--ink-faint);
+  margin-bottom: 40px; word-break: break-all; max-width: 90vw;
+}
+.page__coords span { color: var(--amber); }
+
+/* ---------- actions ---------- */
+.page__actions { position: relative; z-index: 1; display: flex; gap: 14px; flex-wrap: wrap; justify-content: center; margin-bottom: 46px; }
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 9px;
+  font-size: .88rem; font-weight: 600; letter-spacing: .01em;
+  padding: 13px 24px; border-radius: 3px;
+  transition: transform .3s var(--ease), background .3s ease, color .3s ease, border-color .3s ease;
+  will-change: transform;
+}
+.btn svg { transition: transform .3s var(--ease); flex-shrink: 0; }
+.btn--primary { background: var(--amber); color: var(--amber-ink); }
+.btn--primary:hover { background: #f0b258; }
+.btn--primary:hover svg { transform: translateX(3px); }
+.btn--ghost { border: 1px solid var(--line); color: var(--ink); }
+.btn--ghost:hover { border-color: var(--blueprint); color: var(--blueprint); background: var(--blueprint-dim); }
+
+/* ---------- search redirect ---------- */
+.page__search { position: relative; z-index: 1; width: 100%; max-width: 380px; }
+.page__search-field {
+  display: flex; align-items: center; border: 1px solid var(--line); border-radius: 3px;
+  overflow: hidden; background: var(--bg-alt);
+  transition: border-color .3s ease, box-shadow .3s ease;
+}
+.page__search-field:focus-within { border-color: var(--blueprint); box-shadow: 0 0 0 3px var(--blueprint-dim); }
+.page__search-field input { flex: 1; background: transparent; border: none; padding: 13px 14px; font-size: .88rem; color: var(--ink); font-family: var(--f-body); }
+.page__search-field input:focus { outline: none; }
+.page__search-field input::placeholder { color: var(--ink-faint); }
+.page__search-field button {
+  flex-shrink: 0; width: 44px; height: 44px; display: flex; align-items: center; justify-content: center;
+  color: var(--amber); transition: background .3s ease, color .3s ease, transform .3s var(--ease);
+}
+.page__search-field button:hover { background: var(--amber); color: var(--amber-ink); transform: translateX(2px); }
+.page__search-hint { font-family: var(--f-mono); font-size: .64rem; color: var(--ink-faint); margin-top: 10px; letter-spacing: .03em; }
+
+/* ---------- footer tiny ---------- */
+.page__foot {
+  position: relative; z-index: 1;
+  margin-top: 60px;
+  font-family: var(--f-mono); font-size: .7rem; color: var(--ink-faint);
+  display: flex; align-items: center; gap: 8px; flex-wrap: wrap; justify-content: center;
+}
+.page__foot strong { color: var(--ink-dim); }
+.page__foot-sep { color: var(--line); }
+
+@media (max-width: 480px) {
+  .page { padding: 80px 18px 50px; }
+  .page__actions { flex-direction: column; width: 100%; max-width: 280px; }
+  .btn { width: 100%; }
+}
+</style>
+</head>
+<body>
+
+<div class="cursor-ring" id="cursorRing"></div>
+<div class="cursor-dot" id="cursorDot"></div>
+
+<main class="page">
+  <div class="page__grid" aria-hidden="true"></div>
+  <div class="page__glow" aria-hidden="true"></div>
+
+  <a href="index.html" class="page__logo">
+    <svg class="page__logo-mark" viewBox="0 0 40 40" width="30" height="30">
+      <circle cx="20" cy="20" r="17" class="page__logo-ring"/>
+      <line x1="20" y1="20" x2="20" y2="7" class="page__logo-tick"/>
+      <line x1="20" y1="20" x2="29" y2="20" class="page__logo-tick page__logo-tick--minor"/>
+      <circle cx="20" cy="20" r="2.4" class="page__logo-hub"/>
+    </svg>
+    <span class="page__logo-text">PRECISION<span class="page__logo-sub">ENGINEERING</span></span>
+  </a>
+
+  <div class="gauge404">
+    <svg viewBox="0 0 240 240" width="100%" height="100%" class="gauge404__svg">
+      <circle cx="120" cy="120" r="108" class="gauge404__face"/>
+      <g id="gauge404Ticks"></g>
+      <circle cx="120" cy="120" r="84" class="gauge404__inner-ring"/>
+      <line x1="120" y1="120" x2="120" y2="48" class="gauge404__needle"/>
+      <circle cx="120" cy="120" r="6" class="gauge404__hub"/>
+    </svg>
+    <div class="gauge404__readout">
+      <span class="gauge404__label">OUT OF TOLERANCE</span>
+      <span class="gauge404__num glitch" data-text="404">404</span>
+    </div>
+  </div>
+
+  <p class="page__eyebrow"><span class="page__eyebrow-dot"></span>PAGE NOT FOUND</p>
+  <h1 class="page__title">This part didn't come off the line.</h1>
+  <p class="page__sub">The page you're looking for has been moved, renamed, or never existed. Let's get you back on spec.</p>
+  <p class="page__coords">REQUESTED PATH &middot; <span id="reqPath">/unknown</span></p>
+
+  <div class="page__actions">
+    <a href="index.html" class="btn btn--primary">
+      <span>Back to Home</span>
+      <svg width="16" height="16" viewBox="0 0 16 16"><path d="M2 8h11M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </a>
+    <a href="index.html#contact" class="btn btn--ghost">
+      <span>Contact Us</span>
+    </a>
+  </div>
+
+  <form class="page__search" id="page404Search">
+    <div class="page__search-field">
+      <input type="text" id="page404SearchInput" placeholder="Search the site..." autocomplete="off">
+      <button type="submit" aria-label="Search">
+        <svg width="17" height="17" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7" fill="none" stroke="currentColor" stroke-width="1.8"/><line x1="21" y1="21" x2="16.2" y2="16.2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+      </button>
+    </div>
+    <p class="page__search-hint">Try "capabilities", "quote", or "login"</p>
+  </form>
+
+  <p class="page__foot">
+    <span>ERROR CODE <strong>404</strong></span>
+    <span class="page__foot-sep">/</span>
+    <span>LOCAL TIME <strong id="page404Clock">00:00:00</strong></span>
+  </p>
+</main>
+
+<script>
+/* =====================================================
+   404 PAGE — SCRIPT (self-contained)
+===================================================== */
+(function () {
+  "use strict";
+
+  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const hasHover = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+
+  document.addEventListener("DOMContentLoaded", () => {
+    setupCursor();
+    buildGaugeTicks();
+    setupClock();
+    setupRequestedPath();
+    setupSearchRedirect();
+  });
+
+  /* cursor reticle */
+  function setupCursor() {
+    if (!hasHover) return;
+    const dot = document.getElementById("cursorDot");
+    const ring = document.getElementById("cursorRing");
+    if (!dot || !ring) return;
+
+    let ringX = 0, ringY = 0, targetX = 0, targetY = 0, activated = false;
+
+    window.addEventListener("mousemove", (e) => {
+      targetX = e.clientX; targetY = e.clientY;
+      dot.style.left = targetX + "px";
+      dot.style.top = targetY + "px";
+      if (!activated) { activated = true; document.body.classList.add("has-cursor"); }
+    });
+
+    function loop() {
+      ringX += (targetX - ringX) * 0.18;
+      ringY += (targetY - ringY) * 0.18;
+      ring.style.left = ringX + "px";
+      ring.style.top = ringY + "px";
+      requestAnimationFrame(loop);
+    }
+    requestAnimationFrame(loop);
+
+    document.querySelectorAll("a, button, input").forEach((el) => {
+      el.addEventListener("mouseenter", () => ring.classList.add("is-active"));
+      el.addEventListener("mouseleave", () => ring.classList.remove("is-active"));
+    });
+  }
+
+  /* gauge tick marks, danger zone in red on the right third */
+  function buildGaugeTicks() {
+    const ticksGroup = document.getElementById("gauge404Ticks");
+    if (!ticksGroup) return;
+    const total = 60;
+    const cx = 120, cy = 120;
+    for (let i = 0; i < total; i++) {
+      const isMajor = i % 5 === 0;
+      const isDanger = i >= 42 && i <= 52;
+      const angleDeg = (i / total) * 360 - 90;
+      const rad = (angleDeg * Math.PI) / 180;
+      const rOuter = 108;
+      const rInner = isMajor ? 92 : 100;
+      const x1 = cx + rOuter * Math.cos(rad);
+      const y1 = cy + rOuter * Math.sin(rad);
+      const x2 = cx + rInner * Math.cos(rad);
+      const y2 = cy + rInner * Math.sin(rad);
+      const line = document.createElementNS("http://www.w3.org/2000/svg", "line");
+      line.setAttribute("x1", x1.toFixed(2));
+      line.setAttribute("y1", y1.toFixed(2));
+      line.setAttribute("x2", x2.toFixed(2));
+      line.setAttribute("y2", y2.toFixed(2));
+      let cls = "gauge404__tick" + (isMajor ? " gauge404__tick--major" : "");
+      if (isDanger) cls += " gauge404__tick--danger";
+      line.setAttribute("class", cls);
+      ticksGroup.appendChild(line);
+    }
+  }
+
+  /* live clock */
+  function setupClock() {
+    const clock = document.getElementById("page404Clock");
+    if (!clock) return;
+    function update() {
+      const now = new Date();
+      const hh = String(now.getHours()).padStart(2, "0");
+      const mm = String(now.getMinutes()).padStart(2, "0");
+      const ss = String(now.getSeconds()).padStart(2, "0");
+      clock.textContent = `${hh}:${mm}:${ss}`;
+    }
+    update();
+    setInterval(update, 1000);
+  }
+
+  /* show the path that triggered the 404 */
+  function setupRequestedPath() {
+    const el = document.getElementById("reqPath");
+    if (!el) return;
+    try {
+      const path = window.location.pathname + window.location.search;
+      el.textContent = path && path !== "/" ? path : "/unknown";
+    } catch (e) {
+      el.textContent = "/unknown";
+    }
+  }
+
+  /* simple on-site search redirect to homepage anchors */
+  function setupSearchRedirect() {
+    const form = document.getElementById("page404Search");
+    const input = document.getElementById("page404SearchInput");
+    if (!form || !input) return;
+
+    const routes = [
+      { keys: ["capab", "milling", "turning", "grind", "service"], target: "index.html#capabilities" },
+      { keys: ["quote", "contact", "rfq"], target: "index.html#contact" },
+      { keys: ["login", "log in", "sign in"], target: "login.html" },
+      { keys: ["signup", "sign up", "register", "account", "create account"], target: "signup.html" },
+      { keys: ["work", "project", "portfolio", "gallery"], target: "index.html#work" },
+      { keys: ["about", "company"], target: "index.html#about" },
+      { keys: ["process"], target: "index.html#process" },
+      { keys: ["why", "certif"], target: "index.html#why" },
+    ];
+
+    form.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const q = input.value.trim().toLowerCase();
+      if (!q) { window.location.href = "index.html"; return; }
+      const match = routes.find((r) => r.keys.some((k) => q.includes(k)));
+      window.location.href = match ? match.target : "index.html";
+    });
+  }
+})();
+</script>
+</body>
+</html>

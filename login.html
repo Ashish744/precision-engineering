@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Log In — Precision Engineering</title>
+<meta name="description" content="Log in to your Precision Engineering account to track quotes, orders, and inspection reports.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@500;700;900&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="style.css">
+</head>
+<body class="auth-body">
+
+<div class="cursor-ring" id="cursorRing"></div>
+<div class="cursor-dot" id="cursorDot"></div>
+
+<header class="auth-header">
+  <a href="index.html" class="logo">
+    <span class="logo__mark" aria-hidden="true">
+      <svg viewBox="0 0 40 40" width="32" height="32">
+        <circle cx="20" cy="20" r="17" class="logo__mark-ring"/>
+        <line x1="20" y1="20" x2="20" y2="7" class="logo__mark-tick"/>
+        <line x1="20" y1="20" x2="29" y2="20" class="logo__mark-tick logo__mark-tick--minor"/>
+        <circle cx="20" cy="20" r="2.4" class="logo__mark-hub"/>
+      </svg>
+    </span>
+    <span class="logo__text">PRECISION<span class="logo__text-sub">ENGINEERING</span></span>
+  </a>
+  <a href="signup.html" class="btn btn--ghost btn--small">
+    <span>Create Account</span>
+  </a>
+</header>
+
+<main class="auth">
+  <div class="auth__grid" aria-hidden="true"></div>
+  <div class="auth__glow" aria-hidden="true"></div>
+
+  <div class="auth__panel auth__panel--form">
+    <div class="auth__card reveal-up in-view">
+      <p class="eyebrow"><span class="eyebrow__dot"></span>CUSTOMER PORTAL</p>
+      <h1 class="auth__title split-chars" data-split>Welcome back.</h1>
+      <p class="auth__sub">Log in to track quotes, review inspection reports, and reorder past jobs.</p>
+      <p class="auth__sub" style="margin-top: 12px; color: var(--ink-dim);">Access work instructions, inspection data, and job status directly from your desktop or mobile device.</p>
+
+      <div class="info-block" style="margin-bottom: 22px;">
+        <span class="info-block__label">PORTAL BENEFITS</span>
+        <p>Instant visibility on lead times, inspection status, and shipment details for your active jobs.</p>
+      </div>
+
+      <form class="form auth__form" id="loginForm" novalidate>
+        <div class="form__field">
+          <input type="email" id="logEmail" name="email" required placeholder=" " autocomplete="email"
+            pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
+            title="Please enter a valid email address, like name@example.com">
+          <label for="logEmail">Email address</label>
+          <span class="form__field-line"></span>
+        </div>
+
+        <div class="form__field form__field--password">
+          <input type="password" id="logPassword" name="password" required placeholder=" " autocomplete="current-password" minlength="8">
+          <label for="logPassword">Password</label>
+          <span class="form__field-line"></span>
+          <button type="button" class="pw-toggle" id="logPwToggle" aria-label="Show password">
+            <svg class="pw-toggle__eye" width="18" height="18" viewBox="0 0 24 24"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><circle cx="12" cy="12" r="3" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>
+            <svg class="pw-toggle__eye-off" width="18" height="18" viewBox="0 0 24 24" hidden><path d="M3 3l18 18M10.6 10.6a3 3 0 0 0 4.2 4.2M9.9 5.1A11 11 0 0 1 12 5c7 0 11 7 11 7a13.4 13.4 0 0 1-3.1 3.8M6.6 6.6A13.6 13.6 0 0 0 1 12s4 7 11 7a10.6 10.6 0 0 0 4.4-.9" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+        </div>
+
+        <div class="auth__row">
+          <label class="checkbox">
+            <input type="checkbox" id="logRemember">
+            <span class="checkbox__box"><svg viewBox="0 0 16 16" width="11" height="11"><path d="M2 8.5l4 4 8-9" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            Keep me signed in
+          </label>
+          <a href="#" class="auth__link">Forgot password?</a>
+        </div>
+
+        <button type="submit" class="btn btn--primary btn--block auth__submit" id="loginSubmit">
+          <span id="loginSubmitText">Log In</span>
+          <span class="auth__spinner" aria-hidden="true"></span>
+        </button>
+
+        <p class="form__confirm" id="loginConfirm" role="status"></p>
+      </form>
+
+      <div class="auth__divider"><span>or continue with</span></div>
+
+      <div class="auth__oauth">
+        <button type="button" class="oauth-btn" aria-label="Continue with Google">
+          <svg width="18" height="18" viewBox="0 0 18 18"><path fill="#EA4335" d="M9 3.6c1.3 0 2.5.46 3.4 1.34l2.5-2.5C13.4.93 11.3 0 9 0 5.5 0 2.4 2 0.9 4.9l2.9 2.3C4.5 5 6.6 3.6 9 3.6z"/><path fill="#4285F4" d="M17.6 9.2c0-.6-.06-1.2-.16-1.8H9v3.5h4.8c-.2 1.1-.86 2.1-1.8 2.7l2.8 2.2c1.6-1.5 2.6-3.8 2.6-6.6z"/><path fill="#FBBC05" d="M3.8 10.7c-.2-.6-.3-1.2-.3-1.9 0-.66.1-1.3.3-1.9L0.9 4.6C.3 5.9 0 7.4 0 9s.3 3.1.9 4.4l2.9-2.7z"/><path fill="#34A853" d="M9 18c2.4 0 4.5-.8 6-2.2l-2.8-2.2c-.8.5-1.8.9-3.2.9-2.4 0-4.5-1.4-5.3-3.6L0.9 13.4C2.4 16 5.5 18 9 18z"/></svg>
+          <span>Google</span>
+        </button>
+        <button type="button" class="oauth-btn" aria-label="Continue with Microsoft">
+          <svg width="18" height="18" viewBox="0 0 18 18"><rect width="8.5" height="8.5" fill="#F35325"/><rect x="9.5" width="8.5" height="8.5" fill="#81BC06"/><rect y="9.5" width="8.5" height="8.5" fill="#05A6F0"/><rect x="9.5" y="9.5" width="8.5" height="8.5" fill="#FFBA08"/></svg>
+          <span>Microsoft</span>
+        </button>
+      </div>
+
+      <p class="auth__switch">New to Precision Engineering? <a href="signup.html">Create an account</a></p>
+    </div>
+  </div>
+
+  <div class="auth__panel auth__panel--visual">
+    <div class="auth__visual-content">
+      <div class="dial dial--auth" id="authDial">
+        <svg viewBox="0 0 240 240" width="100%" height="100%" class="dial__svg">
+          <circle cx="120" cy="120" r="108" class="dial__face"/>
+          <g class="dial__ticks" id="authDialTicks"></g>
+          <circle cx="120" cy="120" r="84" class="dial__inner-ring"/>
+          <line x1="120" y1="120" x2="120" y2="48" class="dial__needle" id="authDialNeedle"/>
+          <circle cx="120" cy="120" r="6" class="dial__hub"/>
+        </svg>
+        <div class="dial__readout">
+          <span class="dial__readout-label">SESSION STATUS</span>
+          <span class="dial__readout-value">SECURE</span>
+        </div>
+      </div>
+      <blockquote class="auth__quote">
+        <p>"Quote to first article in under a week — hard to find that combined with their tolerance work."</p>
+        <cite>M. Chen &middot; Engineering Manager</cite>
+      </blockquote>
+
+      <div class="info-block" style="padding: 18px; border-radius: 8px; background: rgba(255,255,255,0.03);">
+        <span class="info-block__label">SUPPORT</span>
+        <p>Need help with a drawing or part number? Our customer success team reviews every request to make sure quotes are accurate.</p>
+      </div>
+    </div>
+    <div class="auth__visual-grid" aria-hidden="true"></div>
+  </div>
+</main>
+
+<script src="script.js"></script>
+</body>
+</html>

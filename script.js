@@ -542,15 +542,30 @@
   function setupNewsletter() {
     const form = document.getElementById("footerNewsletter");
     const confirm = document.getElementById("footerNewsletterConfirm");
+    const emailInput = form?.querySelector('input[type="email"]');
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
     if (!form) return;
+
+    if (emailInput) {
+      emailInput.addEventListener("input", () => {
+        emailInput.setCustomValidity("");
+      });
+    }
+
     form.addEventListener("submit", (e) => {
       e.preventDefault();
+      if (emailInput && !emailPattern.test(emailInput.value.trim())) {
+        emailInput.setCustomValidity("Please enter a complete email address like name@example.com.");
+      }
+
       if (!form.checkValidity()) {
         form.reportValidity();
         return;
       }
+
       if (confirm) confirm.textContent = "Subscribed — welcome to the shop floor.";
       form.reset();
+      if (emailInput) emailInput.setCustomValidity("");
       setTimeout(() => { if (confirm) confirm.textContent = ""; }, 5000);
     });
   }
@@ -607,14 +622,62 @@
     const submitText = document.getElementById("submitText");
     const fileInput = document.getElementById("fFile");
     const fileText = document.getElementById("fileDropText");
+    const fileLabel = document.querySelector(".file-drop");
 
     if (fileInput && fileText) {
-      fileInput.addEventListener("change", () => {
-        fileText.textContent = fileInput.files[0] ? fileInput.files[0].name : "Attach drawing or CAD file";
+      const updateFileText = () => {
+        const file = fileInput.files[0];
+        fileText.textContent = file ? file.name : "Attach drawing or CAD file";
+      };
+
+      fileInput.addEventListener("change", updateFileText);
+      updateFileText();
+    }
+
+    if (fileLabel) {
+      fileLabel.addEventListener("dragover", (event) => {
+        event.preventDefault();
+        fileLabel.classList.add("file-drop--active");
+      });
+
+      fileLabel.addEventListener("dragleave", () => {
+        fileLabel.classList.remove("file-drop--active");
+      });
+
+      fileLabel.addEventListener("drop", (event) => {
+        event.preventDefault();
+        fileLabel.classList.remove("file-drop--active");
+        if (!fileInput) return;
+        const droppedFiles = event.dataTransfer?.files;
+        if (droppedFiles && droppedFiles.length) {
+          fileInput.files = droppedFiles;
+          fileInput.dispatchEvent(new Event("change", { bubbles: true }));
+        }
       });
     }
 
     if (!form) return;
+
+    const inputs = form.querySelectorAll("input, textarea");
+    inputs.forEach((field) => {
+      field.addEventListener("input", () => field.setCustomValidity(""));
+    });
+
+    const nameInputs = form.querySelectorAll('input[name="firstName"], input[name="lastName"]');
+    nameInputs.forEach((input) => {
+      input.addEventListener("input", () => {
+        input.value = input.value.replace(/[^a-zA-Z' \-]/g, "");
+        input.setCustomValidity("");
+      });
+    });
+
+    const emailInput = form.querySelector('input[name="email"]');
+    if (emailInput) {
+      emailInput.addEventListener("input", () => {
+        emailInput.setCustomValidity("");
+      });
+    }
+
     form.addEventListener("submit", (e) => {
       e.preventDefault();
       if (!validateContactForm(form) || !form.checkValidity()) {
@@ -623,16 +686,17 @@
       }
 
       const submitBtn = form.querySelector("button[type=submit]");
+      if (!submitBtn) return;
       submitBtn.disabled = true;
       if (submitText) submitText.textContent = "Sending...";
 
-      setTimeout(() => {
+      window.setTimeout(() => {
         if (submitText) submitText.textContent = "Send Request";
         submitBtn.disabled = false;
-        if (confirm) confirm.textContent = "Submitted";
+        if (confirm) confirm.textContent = "Request submitted successfully.";
         form.reset();
         if (fileText) fileText.textContent = "Attach drawing or CAD file";
-        setTimeout(() => { if (confirm) confirm.textContent = ""; }, 3000);
+        window.setTimeout(() => { if (confirm) confirm.textContent = ""; }, 3200);
       }, 1100);
     });
   }
@@ -641,29 +705,49 @@
     const firstNameInput = form.querySelector('input[name="firstName"]');
     const lastNameInput = form.querySelector('input[name="lastName"]');
     const emailInput = form.querySelector('input[name="email"]');
+    const messageInput = form.querySelector('textarea[name="message"]');
     const namePattern = /^[a-zA-Z' -]+$/;
     const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     let isValid = true;
 
-    if (firstNameInput && !namePattern.test(firstNameInput.value.trim())) {
-      firstNameInput.setCustomValidity("First name must contain only letters, spaces, hyphens, and apostrophes.");
-      isValid = false;
-    } else if (firstNameInput) {
-      firstNameInput.setCustomValidity("");
+    if (firstNameInput) {
+      const value = firstNameInput.value.trim();
+      if (!value || !namePattern.test(value)) {
+        firstNameInput.setCustomValidity("First name must contain only letters, spaces, hyphens, and apostrophes.");
+        isValid = false;
+      } else {
+        firstNameInput.setCustomValidity("");
+      }
     }
 
-    if (lastNameInput && !namePattern.test(lastNameInput.value.trim())) {
-      lastNameInput.setCustomValidity("Last name must contain only letters, spaces, hyphens, and apostrophes.");
-      isValid = false;
-    } else if (lastNameInput) {
-      lastNameInput.setCustomValidity("");
+    if (lastNameInput) {
+      const value = lastNameInput.value.trim();
+      if (!value || !namePattern.test(value)) {
+        lastNameInput.setCustomValidity("Last name must contain only letters, spaces, hyphens, and apostrophes.");
+        isValid = false;
+      } else {
+        lastNameInput.setCustomValidity("");
+      }
     }
 
-    if (emailInput && !emailPattern.test(emailInput.value.trim())) {
-      emailInput.setCustomValidity("Invalid email. Use a full address like name@example.com.");
-      isValid = false;
-    } else if (emailInput) {
-      emailInput.setCustomValidity("");
+    if (emailInput) {
+      const value = emailInput.value.trim();
+      if (!emailPattern.test(value)) {
+        emailInput.setCustomValidity("Invalid email. Use a full address like name@example.com.");
+        isValid = false;
+      } else {
+        emailInput.setCustomValidity("");
+      }
+    }
+
+    if (messageInput) {
+      const value = messageInput.value.trim();
+      if (!value) {
+        messageInput.setCustomValidity("Please share the details of your project.");
+        isValid = false;
+      } else {
+        messageInput.setCustomValidity("");
+      }
     }
 
     return isValid;
@@ -869,6 +953,9 @@
         btn.disabled = false;
         if (confirm) confirm.textContent = successText;
         if (textEl) textEl.textContent = idleText;
+        if (formId === "loginForm") {
+          window.location.href = "dashboard.html";
+        }
       }, 1200);
     });
   }

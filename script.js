@@ -639,7 +639,10 @@
     if (!form) return;
     form.addEventListener("submit", (e) => {
       e.preventDefault();
-      if (!form.checkValidity()) return;
+      if (!validateContactForm(form) || !form.checkValidity()) {
+        form.reportValidity();
+        return;
+      }
 
       const submitBtn = form.querySelector("button[type=submit]");
       submitBtn.disabled = true;
@@ -648,12 +651,44 @@
       setTimeout(() => {
         if (submitText) submitText.textContent = "Send Request";
         submitBtn.disabled = false;
-        if (confirm) confirm.textContent = "Request received — we'll follow up within 24 hours.";
+        if (confirm) confirm.textContent = "Submitted";
         form.reset();
         if (fileText) fileText.textContent = "Attach drawing or CAD file";
-        setTimeout(() => { if (confirm) confirm.textContent = ""; }, 6000);
+        setTimeout(() => { if (confirm) confirm.textContent = ""; }, 3000);
       }, 1100);
     });
+  }
+
+  function validateContactForm(form) {
+    const firstNameInput = form.querySelector('input[name="firstName"]');
+    const lastNameInput = form.querySelector('input[name="lastName"]');
+    const emailInput = form.querySelector('input[name="email"]');
+    const namePattern = /^[a-zA-Z' -]+$/;
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    let isValid = true;
+
+    if (firstNameInput && !namePattern.test(firstNameInput.value.trim())) {
+      firstNameInput.setCustomValidity("First name must contain only letters, spaces, hyphens, and apostrophes.");
+      isValid = false;
+    } else if (firstNameInput) {
+      firstNameInput.setCustomValidity("");
+    }
+
+    if (lastNameInput && !namePattern.test(lastNameInput.value.trim())) {
+      lastNameInput.setCustomValidity("Last name must contain only letters, spaces, hyphens, and apostrophes.");
+      isValid = false;
+    } else if (lastNameInput) {
+      lastNameInput.setCustomValidity("");
+    }
+
+    if (emailInput && !emailPattern.test(emailInput.value.trim())) {
+      emailInput.setCustomValidity("Invalid email. Use a full address like name@example.com.");
+      isValid = false;
+    } else if (emailInput) {
+      emailInput.setCustomValidity("");
+    }
+
+    return isValid;
   }
 
   /* ---------------------------------------------------

@@ -710,8 +710,8 @@ section { padding: 110px 0; position: relative; }
 .form__row .form__field { margin-bottom: 0; }
 .form__field input, .form__field textarea {
   width: 100%; background: var(--bg-alt); border: 1px solid var(--line); border-radius: var(--radius);
-  padding: 16px 14px 8px; resize: vertical;
-  transition: border-color .3s ease, box-shadow .3s ease;
+  padding: 18px 16px 10px; resize: vertical; font-size: 1rem;
+  min-height: 52px; transition: border-color .3s ease, box-shadow .3s ease;
 }
 .auth__form input[type="email"] {
   font-size: 1rem;

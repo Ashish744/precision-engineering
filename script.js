@@ -812,6 +812,29 @@
       });
     });
 
+    const authNameInputs = document.querySelectorAll('#supName, #supCompany');
+    authNameInputs.forEach((input) => {
+      input.addEventListener("input", () => {
+        input.value = input.value.replace(/[^a-zA-Z' \-]/g, "");
+        input.setCustomValidity("");
+      });
+      input.addEventListener("invalid", () => {
+        if (input.validity.valueMissing) {
+          if (input.id === "supName") {
+            input.setCustomValidity("Full name is required.");
+          }
+        } else if (input.validity.patternMismatch) {
+          if (input.id === "supName") {
+            input.setCustomValidity("Full name can contain only letters, spaces, hyphens, and apostrophes.");
+          } else {
+            input.setCustomValidity("Company name can contain only letters, spaces, hyphens, and apostrophes.");
+          }
+        } else {
+          input.setCustomValidity("Invalid entry.");
+        }
+      });
+    });
+
     passwordInputs.forEach((input) => {
       input.addEventListener("input", () => input.setCustomValidity(""));
       input.addEventListener("invalid", () => {
@@ -987,6 +1010,30 @@
         isValid = false;
       } else {
         passwordInput.setCustomValidity("");
+      }
+    }
+
+    const fullNameInput = form.querySelector('input[name="name"]');
+    const companyInput = form.querySelector('input[name="company"]');
+    const namePattern = /^[a-zA-Z' \-]+$/;
+
+    if (fullNameInput) {
+      const value = fullNameInput.value.trim();
+      if (!value || !namePattern.test(value)) {
+        fullNameInput.setCustomValidity("Full name can contain only letters, spaces, hyphens, and apostrophes.");
+        isValid = false;
+      } else {
+        fullNameInput.setCustomValidity("");
+      }
+    }
+
+    if (companyInput) {
+      const value = companyInput.value.trim();
+      if (value && !namePattern.test(value)) {
+        companyInput.setCustomValidity("Company name can contain only letters, spaces, hyphens, and apostrophes.");
+        isValid = false;
+      } else {
+        companyInput.setCustomValidity("");
       }
     }
 

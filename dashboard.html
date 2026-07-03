@@ -23,16 +23,11 @@
       </a>
 
       <nav class="main-nav" id="mainNav">
-        <a href="index.html" class="main-nav__link"><span>Home</span></a>
-        <a href="about.html" class="main-nav__link"><span>About</span></a>
-        <a href="capabilities.html" class="main-nav__link"><span>Capabilities</span></a>
-        <a href="process.html" class="main-nav__link"><span>Process</span></a>
-        <a href="work.html" class="main-nav__link"><span>Work</span></a>
-        <a href="contact.html" class="main-nav__link"><span>Contact</span></a>
+        <a href="dashboard.html" class="main-nav__link active"><span>Dashboard</span></a>
       </nav>
 
-      <a href="contact.html" class="btn btn--small btn--primary magnetic" data-magnetic>
-        <span>Request a Quote</span>
+      <a href="logout.html" class="btn btn--small btn--ghost" id="logoutBtn">
+        <span>Logout</span>
       </a>
 
       <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation menu" aria-expanded="false">
@@ -43,14 +38,10 @@
 
   <div class="mobile-nav" id="mobileNav">
     <nav class="mobile-nav__links">
-      <a href="index.html">Home</a>
-      <a href="about.html">About</a>
-      <a href="capabilities.html">Capabilities</a>
-      <a href="process.html">Process</a>
-      <a href="work.html">Work</a>
-      <a href="contact.html">Contact</a>
+      <a href="dashboard.html">Dashboard</a>
+      <a href="logout.html">Logout</a>
     </nav>
-    <a href="404error.html" class="btn btn--primary btn--block">Request a Quote</a>
+    <a href="logout.html" class="btn btn--primary btn--block">Logout</a>
   </div>
 
   <main>
@@ -115,91 +106,7 @@
     </section>
   </main>
 
-  <footer class="site-footer">
-    <div class="site-footer__grid" aria-hidden="true"></div>
-    <div class="site-footer__sweep" aria-hidden="true"></div>
-    <div class="site-footer__beam" aria-hidden="true"></div>
-
-    <div class="container footer-cta">
-      <h2 class="footer-cta__heading split-chars" data-split>Let's hold your tolerance.</h2>
-      <a href="404error.html" class="btn btn--primary btn--large magnetic footer-cta__btn" data-magnetic>
-        Request a Quote
-      </a>
-    </div>
-
-    <div class="container footer-panel">
-      <div class="footer-status" id="footerStatus">
-        <span class="footer-status__dot"></span>
-        <span>SYSTEMS NOMINAL</span>
-        <span class="footer-status__sep">/</span>
-        <span>LOCAL TIME <strong id="footerClock">2026</strong></span>
-      </div>
-
-      <div class="container site-footer__top">
-        <div class="footer-brand">
-          <a href="index.html" class="logo logo--footer">
-            <span class="logo__mark" aria-hidden="true">
-              <svg viewBox="0 0 40 40" width="34" height="34">
-                <circle cx="20" cy="20" r="17" class="logo__mark-ring"/>
-                <line x1="20" y1="20" x2="20" y2="7" class="logo__mark-tick"/>
-                <line x1="20" y1="20" x2="29" y2="20" class="logo__mark-tick logo__mark-tick--minor"/>
-                <circle cx="20" cy="20" r="2.4" class="logo__mark-hub"/>
-              </svg>
-            </span>
-            <img src="logo (1).webp" alt="Precision Engineering" class="logo__img">
-          </a>
-          <p class="footer-brand__tagline">CNC machining and precision manufacturing,<br>held to the micron, every run.</p>
-        </div>
-
-        <nav class="footer-col">
-          <h4 class="footer-col__title">Company</h4>
-          <a href="about.html">About</a>
-          <a href="index.html#why">Certifications</a>
-          <a href="index.html#testimonials">Customers</a>
-          <a href="contact.html">Contact</a>
-        </nav>
-
-        <nav class="footer-col">
-          <h4 class="footer-col__title">Capabilities</h4>
-          <a href="404error.html">CNC Milling</a>
-          <a href="404error.html">CNC Turning</a>
-          <a href="404error.html">Precision Grinding</a>
-          <a href="404error.html">Metrology</a>
-        </nav>
-
-        <nav class="footer-col">
-          <h4 class="footer-col__title">Account</h4>
-          <a href="404error.html">Log In</a>
-          <a href="404error.html">Create Account</a>
-          <a href="404error.html">Project Gallery</a>
-          <a href="404error.html">Request a Quote</a>
-        </nav>
-      </div>
-
-      <div class="footer-ticker">
-        <div class="footer-ticker__track">
-          <span>EST. 1998</span><span class="footer-ticker__sep">&#9670;</span>
-          <span>ISO 9001:2015</span><span class="footer-ticker__sep">&#9670;</span>
-          <span>AS9100D</span><span class="footer-ticker__sep">&#9670;</span>
-          <span>ITAR REGISTERED</span><span class="footer-ticker__sep">&#9670;</span>
-          <span>&plusmn;0.0005 IN TOLERANCE</span><span class="footer-ticker__sep">&#9670;</span>
-          <span>RIVERTON, OHIO</span><span class="footer-ticker__sep">&#9670;</span>
-        </div>
-      </div>
-
-      <div class="container site-footer__bottom">
-        <p>&copy; <span id="footerYear">2026</span> Precision Engineering. All rights reserved.</p>
-        <div class="footer-socials">
-          <a href="404error.html" aria-label="LinkedIn" class="footer-social"><svg width="16" height="16" viewBox="0 0 24 24"><path fill="currentColor" d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9h4v12H3V9zm6.5 0H13v1.8h.06c.6-1.1 2-1.8 3.7-1.8 3.6 0 4.24 2 4.24 5.5V21H17v-5.6c0-1.3 0-3-1.9-3s-2.1 1.4-2.1 2.9V21H9.5V9z"/></svg></a>
-          <a href="404error.html" aria-label="X / Twitter" class="footer-social"><svg width="16" height="16" viewBox="0 0 24 24"><path fill="currentColor" d="M18.9 2H22l-7.3 8.3L23 22h-6.9l-5.4-7-6.2 7H2l7.8-8.9L1.5 2h7l4.9 6.4L18.9 2z"/></svg></a>
-          <a href="404error.html" aria-label="YouTube" class="footer-social"><svg width="16" height="16" viewBox="0 0 24 24"><path fill="currentColor" d="M22 7.2s-.2-1.6-.8-2.2c-.8-.8-1.7-.8-2.1-.9C16 4 12 4 12 4s-4 0-7.1.1c-.4 0-1.3.1-2.1.9C2.2 5.6 2 7.2 2 7.2S1.8 9 1.8 10.9v2.2c0 1.9.2 3.7.2 3.7s.2 1.6.8 2.2c.8.8 1.9.8 2.3.9C6.5 20 12 20 12 20s4 0 7.1-.1c.4 0 1.3-.1 2.1-.9.6-.6.8-2.2.8-2.2s.2-1.8.2-3.7v-2.2c0-1.9-.2-3.7-.2-3.7zM9.9 14.6V8.9l5.4 2.9-5.4 2.8z"/></svg></a>
-          <a href="404error.html" aria-label="Instagram" class="footer-social"><svg width="16" height="16" viewBox="0 0 24 24"><path fill="currentColor" d="M7.5 2h9A5.5 5.5 0 0 1 22 7.5v9A5.5 5.5 0 0 1 16.5 22h-9A5.5 5.5 0 0 1 2 16.5v-9A5.5 5.5 0 0 1 7.5 2zm0 2A3.5 3.5 0 0 0 4 7.5v9A3.5 3.5 0 0 0 7.5 20h9a3.5 3.5 0 0 0 3.5-3.5v-9A3.5 3.5 0 0 0 16.5 4h-9zm11.25 1.5a1.125 1.125 0 1 1 0 2.25 1.125 1.125 0 0 1 0-2.25zM12 7a5 5 0 1 1 0 10 5 5 0 0 1 0-10zm0 2a3 3 0 1 0 0 6 3 3 0 0 0 0-6z"/></svg></a>
-          <a href="404error.html" aria-label="Facebook" class="footer-social"><svg width="16" height="16" viewBox="0 0 24 24"><path fill="currentColor" d="M22 12a10 10 0 1 0-11.5 9.95V14.7h-2.2v-2.7h2.2V9.8c0-2.18 1.3-3.4 3.3-3.4.95 0 1.95.17 1.95.17v2.15h-1.1c-1.1 0-1.45.69-1.45 1.4v1.68h2.5l-.4 2.7h-2.1v7.26A10 10 0 0 0 22 12Z"/></svg></a>
-        </div>
-        <div class="footer-policy"><a href="404error.html">Privacy &amp; Policy</a> &nbsp;|&nbsp; <a href="404error.html">Terms &amp; Conditions</a></div>
-      </div>
-    </div>
-  </footer>
+  
 
   <script src="script.js"></script>
 </body>

@@ -956,6 +956,10 @@
         if (formId === "loginForm") {
           window.location.href = "dashboard.html";
         }
+        else if (formId === "signupForm") {
+          // after creating an account, send user to the login page
+          window.location.href = "login.html";
+        }
       }, 1200);
     });
   }
